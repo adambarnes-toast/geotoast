@@ -2,7 +2,7 @@
 <html>
 
   <head>
-    <title>Simple Map</title>
+    <title>Geo Toast</title>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
@@ -18,12 +18,13 @@
       }
 
       #sidebar {
-        height: 100%;
+        height: 100vh;
         width: 20%;
 
         float: left;
         background: #eee;
-        overflow: scroll;
+
+        overflow: auto;
       }
 
       .fade li {
@@ -37,11 +38,14 @@
 
       #ordersList {
         padding: 20px;
+        height: 100%;
       }
 
       .orderElement {
-        margin-top: 8px;
-        padding-bottom: 8px;
+        margin-top: 2rem;
+        padding-bottom: 2rem;
+        padding-right: 1rem;
+        padding-left: 1rem;
         list-style-type: none;
         border-bottom: 1px solid;
       }
@@ -58,28 +62,34 @@
   <body>
     <div id="map"></div>
 
-    <div class="fade">
-      <div id="sidebar">
-        <ul id="ordersList">
-        </ul>
-      </div>
+    <div id="sidebar" class="fade">
+      <ul id="ordersList">
+      </ul>
     </div>
 
     <script>
       var map;
+      var markersArray = new Array();
+      var FIXED_NUM_VISIBLE_MARKERS = 50;
+      var FIXED_MARKER_SIZE = true;
+
       function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: 42.3601, lng: -71.0589},
-          zoom: 4
+          center: {lat: 41.2571, lng: -95.9951},
+          zoom: 5
         });
 
-        window.setInterval(orderFetcher, 2000);
-        //orderFetcher();
+        (function loop() {
+          let rand = Math.round(Math.random() * (2500 - 500)) + 500;
+          setTimeout(function() {
+            orderFetcher();
+            loop();  
+          }, rand);
+        }());
       }
 
       function orderFetcher() {
         $.getJSON("http://localhost:8080/orders/latest", function(latestOrder) {
-          console.log(latestOrder);
           displayOrder(latestOrder);
         });
       }
@@ -96,28 +106,66 @@
       function dropMarker(jsonPacket) {
         /*
          * Drops a marker on the map.
-         * TODO:
-         *  - Nicer icons dependent on order amount.
-         *  - Slower animation speed.
-         *  - Different icon sizes.
          */
+
+        let icon = {
+          scaledSize: new google.maps.Size(3*15.5, 3*30.2),
+        }
+
+        switch(jsonPacket.size) {
+            case 'S':
+              icon.url = "toast-pin-bronze.png";
+              break;
+            case 'M':
+              icon.url = "toast-pin-silver.png";
+              break;
+            case 'L':
+              icon.url = "toast-pin-gold.png";
+              break;
+        }
+
+        if(!FIXED_MARKER_SIZE) {
+          icon.scaledSize = new google.maps.Size(6*.155*jsonPacket.amount, 6*.302*jsonPacket.amount);
+        }
+
         let marker = new google.maps.Marker({
           position: {
             lat: jsonPacket.address.latitude,
             lng: jsonPacket.address.longitude
           },
           animation: google.maps.Animation.DROP,
-          map: map
+          map: map,
+          icon: icon,
         });
+
+        // Create the infowindow:
+        let infowindow = new google.maps.InfoWindow({
+          content: jsonPacket.address.name,
+          maxWidth: 200
+        });
+
+        // Pop up the info window on mouseover and remove it on mouse exit.
+        marker.addListener('mouseover', function() {
+          infowindow.open(map, marker);
+        });
+
+        marker.addListener('mouseout', function() {
+          infowindow.close();
+        });
+
+        // Finally add it to the markers queue and remove the oldes one if
+        // necessary.
+        markersArray.push(marker);
+
+        if(markersArray.length >= FIXED_NUM_VISIBLE_MARKERS) {
+          let markerToRemove = markersArray.shift();
+          markerToRemove.setMap(null);
+        }
       }
 
       function addToList(order) {
         /*
          * Adds an order to the sidebar list of orders coming in.
-         * TODO:
-         *  - Style the orderElement class better.
-         *  - Much better...
-         *  - Use jQuery to animate a slide in.
          */
         let sidebar = document.getElementById("sidebar");
         let orderElementNode = document.createElement("li");
@@ -125,7 +173,7 @@
         orderElementNode.className = "orderElement";
         
         orderElementNode.innerHTML += "An order for $" + order.amount;
-        orderElementNode.innerHTML += " came from " + order.numberOfGuests;
+        orderElementNode.innerHTML += " came from " + order.guests;
         orderElementNode.innerHTML += " guests at " + order.address.name;
         
         sidebar.insertBefore(orderElementNode, sidebar.firstChild);
@@ -134,6 +182,17 @@
           orderElementNode.className += " show";
         }, 100);
       }
+
+      function hideSidebar() {
+        $("#sidebar").hide();
+        $("#map").width("100%");
+      }
+
+      function showSidebar() {
+        $("#sidebar").show();
+        $("#map").width("80%");
+      }
+
     </script>
 
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD2RnB1rvhs-Zat0-R6tcZ2ExnK0aItnvg&callback=initMap"
