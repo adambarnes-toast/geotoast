@@ -1,6 +1,6 @@
 package com.toasttab.geotoast
 
-import com.toasttab.geotoast.model.Order
+import com.toasttab.geotoast.model.PosOrder
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.CrossOrigin
 import org.springframework.web.bind.annotation.RequestMapping
@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("/orders")
 class OrdersController {
 
-    @Autowired OrdersRepository ordersRepository
+    @Autowired OrdersService ordersService
 
     @CrossOrigin
     @RequestMapping("/latest")
-    public Order latest(){
-        ordersRepository.getLatest()
+    public PosOrder latest(){
+        ordersService.getLatest()
     }
 
 }

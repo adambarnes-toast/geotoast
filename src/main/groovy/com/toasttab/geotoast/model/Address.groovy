@@ -2,9 +2,14 @@ package com.toasttab.geotoast.model
 
 import groovy.transform.EqualsAndHashCode
 
+import javax.persistence.Entity
+import javax.persistence.Id
+
 @EqualsAndHashCode
+@Entity
 class Address {
 
+    @Id
     Long id
     String name
     String city
@@ -13,6 +18,7 @@ class Address {
     Double latitude
     Double longitude
 
+    Address(){}
 
     Address(Long id, String name, String city, String state, String zip, Double latitude, Double longitude) {
         this.id = id
