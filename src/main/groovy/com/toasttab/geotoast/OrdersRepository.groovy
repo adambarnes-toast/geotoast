@@ -41,8 +41,8 @@ class OrdersRepository {
     }
 
     Order getLatest() {
-        Order order = orders.get(++count)
-        order.address = addresses.get(count)
+        Order order = orders.get(++count % 10)
+        order.address = addresses.get(count % 10)
         order.closedDate = new Date()
         order
     }
