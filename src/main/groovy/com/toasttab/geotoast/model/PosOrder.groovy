@@ -19,6 +19,9 @@ class PosOrder {
     @Transient
     Address address
 
+    @Transient
+    String size = 'S'
+
     Date closed
 
     Integer guests

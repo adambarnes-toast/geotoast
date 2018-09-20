@@ -29,6 +29,11 @@ class OrdersService {
     PosOrder getLatest(){
         PosOrder order = getRandom(orders)
         order.address = getRandom(addresses)
+
+        if (order.amount > 8 ){
+            order.size = order.amount > 15 ? "L" : "M"
+        }
+
         order.closed = new Date()
         order
     }
