@@ -9,6 +9,15 @@ function initMap() {
     zoom: 5
   });
 
+  // Also init the checkboxes:
+  $("#showSidebarCheckbox").click(function() {
+    if(document.getElementById('showSidebarCheckbox').checked) {
+      showSidebar();
+    } else {
+      hideSidebar();
+    }
+  });
+
   (function loop() {
     let rand = Math.round(Math.random() * (2500 - 500)) + 500;
     setTimeout(function() {
