@@ -16,6 +16,11 @@
   overflow: auto;
 }
 
+#topDiv {
+  width: 100%;
+  text-align: center;
+}
+
 .fade li {
   transition: all 0.8s ease-out;
   opacity: 0;
@@ -31,12 +36,18 @@
 }
 
 .orderElement {
+  /*
   margin-top: 2rem;
-  padding-bottom: 2rem;
+  */
+  padding-bottom: 5px;
+  padding-top: 5px;
+
+  font-family: "Lato Light";
   padding-right: 1rem;
   padding-left: 1rem;
   list-style-type: none;
   border-bottom: 1px solid;
+  color: #666;
 }
 
 /* Optional: Makes the sample page fill the window. */

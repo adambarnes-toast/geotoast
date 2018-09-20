@@ -1,6 +1,6 @@
 var map;
 var markersArray = new Array();
-var FIXED_NUM_VISIBLE_MARKERS = 50;
+var FIXED_NUM_VISIBLE_MARKERS = 10;
 var FIXED_MARKER_SIZE = true;
 
 function initMap() {
