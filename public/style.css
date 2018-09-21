@@ -3,6 +3,7 @@
 
 body {
   overflow: hidden;
+  font-family: "Lato";
 }
 
 h1 {
@@ -42,14 +43,16 @@ h1 {
 }
 
 #logoDiv {
+  padding-left: 1rem;
   width: 20%;
 }
 
 #titleDiv {
   width: 60%;
   float: right;
+  font-weight: 300;
+  color: #FF4C00;
 }
-
 
 #menuDiv {
   padding-top: 5px;
@@ -87,7 +90,8 @@ h1 {
   padding-bottom: 5px;
   padding-top: 5px;
 
-  font-family: "Lato Light";
+  font-family: "Lato";
+  font-weight: 400;
   padding-right: 1rem;
   padding-left: 1rem;
   list-style-type: none;
