@@ -34,10 +34,6 @@ function handleRangeInput() {
   FIXED_NUM_VISIBLE_MARKERS = rangeInput.value;
 
   document.getElementById("sliderValue").innerHTML = rangeInput.value;
-
-  // TODO:
-  // And clear out all the old markers:
-  
 }
 
 function orderFetcher() {
@@ -109,7 +105,7 @@ function dropMarker(jsonPacket) {
   // necessary.
   markersArray.push(marker);
 
-  if(markersArray.length >= FIXED_NUM_VISIBLE_MARKERS) {
+  while(markersArray.length > FIXED_NUM_VISIBLE_MARKERS) {
     let markerToRemove = markersArray.shift();
     markerToRemove.setMap(null);
   }
