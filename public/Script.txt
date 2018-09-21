@@ -1,0 +1,10 @@
+Intro - Live Conor
+
+Hello, I'm Conor Flynn an engineer in the Dublin office and along with my colleague Adam Barnes we're Team TLOM.
+<pause>
+So we know we have lots of customers at Toast, and lots of restaurants and they place lots of orders and we thought it would be cool if there was
+a way to see the orders coming in in real time.
+So for our hack we've put together... Toast Live Orders Map
+Here is a short video of the Orders Map in action
+
+Voiceover - Adam
