@@ -8,3 +8,25 @@ So for our hack we've put together... Toast Live Orders Map
 Here is a short video of the Orders Map in action
 
 Voiceover - Adam
+
+Here we can see the Toast Live Orders Map. The way it works is once a second it queries the server we've created to get the latest order placed at a toast Restaurant.
+We're actually using production data from a couple of days ago rather than *live* data but these are real toast orders
+A pin with the Toast logo is placed on the map in the correct place using the address data stored in toast-orders and
+the colour of the pin varies based on the order amount. Less than 8 dollars gets a bronze pin, 8 to 15 gets silver and any order over 15 dollars gets
+a gold pin with a dollar sign inside the Toast logo
+Currently it's set to just show 5 pins with the oldest disappearing when a new one comes in, this can be changed in the top right <change the setting>
+You can also see there's a text feed on the right showing order amount, number of guests and restaurant name and this can be toggled with the sidebar control <use control>
+And the map then expands to fill the whole screen
+<pause>
+So, what's this for?
+Some possible uses:
+1) Maybe have it on the toasttab.com website to impress potential customers
+2) Have it up on a screen somewhere in the Toast office, maybe behind reception to show visitors to the office
+3) Trade shows - something like the National Restaurant Association Show, have it on a big screen at our stall to demonstrate Toast being used across the country
+
+So there it is Toast Live Orders Map, thank you very much
+
+
+Conor
+
+Goodbye
