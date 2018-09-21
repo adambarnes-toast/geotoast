@@ -120,9 +120,8 @@ function addToList(order) {
 
   orderElementNode.className = "orderElement";
 
-  orderElementNode.innerHTML += "An order for $" + order.amount;
-  orderElementNode.innerHTML += " came from " + order.guests;
-  orderElementNode.innerHTML += " guests at " + order.address.name;
+  const formattedAmount = '$' + order.amount.toFixed(2);
+  orderElementNode.innerHTML += `An order for ${formattedAmount} came from ${order.guests} guest${order.guests > 1 ? 's' : ''} at ${order.address.name}`;
 
   sidebar.insertBefore(orderElementNode, sidebar.firstChild);
 
