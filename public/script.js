@@ -9,7 +9,7 @@ function initMap() {
     zoom: 5
   });
 
-  // Also init the checkboxes:
+  // Also init the menu:
   $("#showSidebarCheckbox").click(function() {
     if(document.getElementById('showSidebarCheckbox').checked) {
       showSidebar();
@@ -17,6 +17,8 @@ function initMap() {
       hideSidebar();
     }
   });
+  let rangeInput = document.getElementById("rangeInput");
+  rangeInput.oninput = handleRangeInput;
 
   (function loop() {
     let rand = Math.round(Math.random() * (2500 - 500)) + 500;
@@ -25,6 +27,17 @@ function initMap() {
       loop();  
     }, rand);
   }());
+}
+
+function handleRangeInput() {
+  let rangeInput = document.getElementById("rangeInput");
+  FIXED_NUM_VISIBLE_MARKERS = rangeInput.value;
+
+  document.getElementById("sliderValue").innerHTML = rangeInput.value;
+
+  // TODO:
+  // And clear out all the old markers:
+  
 }
 
 function orderFetcher() {
